@@ -1,0 +1,82 @@
+/*
+This CSS file contains the CSS for the WP admin area.
+
+@package Encrypted Post Type
+@author Shaun Jenkins
+@since 1.0.0
+@version 1.0.10
+
+(C) 2022 Shaun Jenkins
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+All Post Screen (APS)
+	APS - Elements
+Sidebar Menu (SM)
+	SM - Elements
+Edit Screen (ES)
+	ES - Sidebar
+--------------------------------------------------------------*/
+.post-type-en_p_t .subsubsub .publish,
+.post-type-en_p_t #wp-admin-bar-view {
+	display: none;
+}
+
+/*--------------------------------------------------------------
+Sidebar Menu (SM)
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+SM - Elements
+--------------------------------------------------------------*/
+#adminmenu .menu-icon-en_p_t .wp-submenu > li:first-child + li + li + li,
+#adminmenu .menu-icon-en_p_t .wp-submenu > li:last-child {
+	padding-top: 5px;
+	margin-top: 5px;
+	border-top: 1px dashed #a2a2a2;
+}
+
+#adminmenu .menu-icon-en_p_t .wp-submenu a:before {
+	content: "\f323";
+	font-family: dashicons;
+	position: absolute;
+	left: 12px;
+}
+
+#adminmenu .menu-icon-en_p_t .wp-submenu a {
+	padding-left: 32px !important;
+	position: relative;
+	display: block;
+}
+
+#adminmenu .menu-icon-en_p_t .wp-submenu > li:first-child + li a,
+#adminmenu .menu-icon-en_p_t .wp-submenu > li:first-child + li + li a,
+#adminmenu .menu-icon-en_p_t .wp-submenu > li:last-child a {
+	padding-left: 12px !important;
+}
+
+#adminmenu .menu-icon-en_p_t .wp-submenu > li:first-child + li a:before,
+#adminmenu .menu-icon-en_p_t .wp-submenu > li:first-child + li + li a:before,
+#adminmenu .menu-icon-en_p_t .wp-submenu > li:last-child a:before {
+	content: none;
+}
+
+/*--------------------------------------------------------------
+Edit Screen (ES)
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+ES - Sidebar
+--------------------------------------------------------------*/
+.post-type-en_p_t .editor-post-switch-to-draft,
+.post-type-en_p_t .block-editor-post-preview__button-toggle,
+.post-type-en_p_t .edit-post-post-visibility,
+.post-type-en_p_t .edit-post-post-schedule,
+.post-type-en_p_t .edit-post-post-status h2 {
+	display: none;
+}
+
+.post-type-en_p_t .editor-post-trash.components-button {
+	margin-top: -8px;
+	text-transform: capitalize;
+}

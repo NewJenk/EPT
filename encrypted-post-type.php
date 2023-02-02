@@ -119,7 +119,7 @@ if ( ! class_exists('en_p_t') ) :
 
 
 		/**
-		 * Enqueue scripts and styles on the front-end.
+		 * Enqueue scripts/styles (admin)
 		 * 
 		 * @version 1.0.0
 		 * @since 1.0.0

@@ -3,7 +3,7 @@
 Plugin Name: Encrypted Post Type
 Plugin URI: https://encryptedposttype.com
 Description: Encrypted Post Type provides a custom post type where the content of each post is encrypted.
-Version: 1.0.0
+Version: 1.0.1
 Author: Shaun Jenkins
 Author URI: https://github.com/NewJenk
 Text Domain: encrypted-post-type
@@ -48,7 +48,7 @@ if ( ! class_exists('en_p_t') ) :
 			// vars
 			$this->settings = array(
 				'plugin'			=> 'Encrypted Post Type',
-				'version'			=> '1.0.0',
+				'version'			=> '1.0.1',
 				'url'				=> plugin_dir_url( __FILE__ ),
 				'path'				=> plugin_dir_path( __FILE__ ),
 			);
@@ -501,10 +501,19 @@ if ( ! class_exists('en_p_t') ) :
 				 */
 				$decryption_key = $this->en_p_t_key_to_use_to_encrypt_data($encrypted_encryption_key, $encrypted_iv);
 
-				$cipher = "aes128";
-				$escaped_iv_1 = $revision_id ? get_metadata( 'post', $revision_id, '_en_p_t_e_iv', true ) : get_post_meta( $post_id, '_en_p_t_e_iv', true);
-				$iv_to_binary = hex2bin($escaped_iv_1);
-				$encrypted_content = substr($content, 6);
+				$cipher				= "aes128";
+				$escaped_iv_1 		= $revision_id ? get_metadata( 'post', $revision_id, '_en_p_t_e_iv', true ) : get_post_meta( $post_id, '_en_p_t_e_iv', true);
+				$iv_to_binary 		= hex2bin($escaped_iv_1);
+				$encrypted_content	= $content;
+
+				/**
+				 * In ver 1.0.0 encrypted content was prepended with 'en.p.t' but this was removed in ver 1.0.1.
+				 */
+				if ( substr($content, 0, 6) == 'en.p.t' ) {
+
+					$encrypted_content = substr($content, 6);
+	
+				}
 
 				return openssl_decrypt($encrypted_content, $cipher, $decryption_key, 0, $iv_to_binary);
 
@@ -520,7 +529,7 @@ if ( ! class_exists('en_p_t') ) :
 
 
 		/**
-		 * This function encrypts the post content and post title.
+		 * This function encrypts the post content.
 		 *
 		 * @version 1.0.0
 		 * @since 1.0.0
@@ -530,8 +539,13 @@ if ( ! class_exists('en_p_t') ) :
 			// Init var.
 			$is_revision = false;
 
-			// The content is encrypted so doesn't need to be encrypted again.
-			if ( substr($post->post_content, 0, 6) == 'en.p.t' ) {
+			/**
+			 * The content is encrypted so doesn't need to be encrypted again. has_blocks checks if there are blocks and
+			 * encrypted content won't have any blocks (because it's ciphertext).
+			 *
+			 * @link https://developer.wordpress.org/reference/functions/has_blocks/
+			 */
+			if ( ! has_blocks($post->post_content) ) {
 
 				return;
 
@@ -578,16 +592,14 @@ if ( ! class_exists('en_p_t') ) :
 					 * Create iv, which will be used now for encryption and will also be saved as meta data to this specific post for use
 					 * during decryption.
 					 */
-					$cipher = "aes128";
-					$iv_length = openssl_cipher_iv_length($cipher);
-					$iv = openssl_random_pseudo_bytes($iv_length);
+					$cipher		= "aes128";
+					$iv_length	= openssl_cipher_iv_length($cipher);
+					$iv 		= openssl_random_pseudo_bytes($iv_length);
 					$escaped_iv = bin2hex($iv); //$iv is binary, it needs to be converted to a hexadecimal representation so it can be stored for later use (the later use being decryption).
+
 					update_post_meta( $post_id, '_en_p_t_e_iv', $escaped_iv );
 
 				}
-
-				// Unhook this function so it doesn't loop infinitely.
-				remove_action( 'save_post', array( $this, 'en_p_t_encrypt_the_post'), 10, 2 );
 
 				/**
 				 * The post has just been updated, but we're just about to update it with the encrypted value (see wp_update_post below) so we need to delete
@@ -614,25 +626,22 @@ if ( ! class_exists('en_p_t') ) :
 				 */
 				if ( ! empty($post->post_content) ) {
 
-					// Update the post, which calls save_post again.
-					wp_update_post( array( 'ID' => $post_id, 'post_content' => 'en.p.t' . openssl_encrypt($post->post_content, $cipher, $encryption_key, 0, $iv) ) );
+					// Unhook this function otherwise it will trigger again because of wp_update_post.
+					remove_action( 'save_post', array( $this, 'en_p_t_encrypt_the_post'), 10, 2 );
 
 					/**
-					 * When wp_update_post fires above, it seems to create 2 revisions, so this deletes the most recent one.
-					 * 
-					 * @note Not sure why but sometimes when this fires it seems to delete loads of revisions? In some ways I suppose this isn't a bad thing because
-					 * revisions can fill up pretty quick, but I haven't been able to pinpoint specifically why it does it.
+					 * @link https://wordpress.stackexchange.com/a/337417
 					 */
-					/* if ( $latest_revision ) {
-	
-						wp_delete_post($latest_revision->ID, true);
-	
-					} */
+					if ( did_action('save_post') === 1 ) {
+
+						do_action( 'en_p_t_before_save', $post->post_content, $post_id );
+
+					}
+
+					// Encrypt the post.
+					wp_update_post( array( 'ID' => $post_id, 'post_content' => openssl_encrypt($post->post_content, $cipher, $encryption_key, 0, $iv) ) );
 
 				}
-		
-				// Re-hook this function.
-				// add_action( 'save_post', array( $this, 'en_p_t_encrypt_the_post'), 10, 2 );
 
 			}
 
@@ -802,6 +811,8 @@ if ( ! class_exists('en_p_t') ) :
 			if ( $iv_meta ) {
 
 				update_post_meta( $post_id, '_en_p_t_e_iv', $iv_meta );
+
+				do_action( 'en_p_t_after_revision_restore', $post_id, $revision_id );
 
 			}
 

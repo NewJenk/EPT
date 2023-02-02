@@ -22,8 +22,7 @@ if ( ! class_exists('en_p_t_pt') ) :
 
 			add_filter( 'manage_edit-en_p_t_sortable_columns', array($this, 'en_p_t_pt_modified_col_sort') );
 
-			add_action( 'pre_get_posts', array($this, 'en_p_t_pt_default_orderby'), 9 );
-
+			add_action( 'pre_get_posts', array($this, 'en_p_t_pt_default_orderby'), 5 );
 
 		}
 
@@ -114,7 +113,7 @@ if ( ! class_exists('en_p_t_pt') ) :
 		 * @version 1.0.0
 		 * @since 1.0.0
 		 */
-		function en_p_t_pt_default_orderby( $query ) {   
+		function en_p_t_pt_default_orderby( $query ) {
 
 			if ( ! is_admin() ) {
 				

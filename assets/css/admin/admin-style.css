@@ -18,6 +18,8 @@ Sidebar Menu (SM)
 	SM - Elements
 Edit Screen (ES)
 	ES - Sidebar
+	ES - Main Content Area
+		ES_M - Blocks
 --------------------------------------------------------------*/
 .post-type-en_p_t .subsubsub .publish,
 .post-type-en_p_t #wp-admin-bar-view {
@@ -79,4 +81,17 @@ ES - Sidebar
 .post-type-en_p_t .editor-post-trash.components-button {
 	margin-top: -8px;
 	text-transform: capitalize;
+}
+
+/*--------------------------------------------------------------
+ES - Main Content Area
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+ES_M - Blocks
+--------------------------------------------------------------*/
+@media only screen and (max-width: 662px) {
+	/* If themes styles are not being used 'ept-no-theme-styles' class added to body */
+	.ept-no-theme-styles .block-editor-writing-flow {
+		padding: 0 8px;
+	}
 }

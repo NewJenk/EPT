@@ -40,9 +40,26 @@ function openPostStatus() {
 
 }
 
+/**
+ * Add left/right padding on mobile if not using theme styles because there isn't any padding so content sits right up
+ * against edge of viewport which looks naff.
+ */
+function mobPadding() {
+
+	var themeStyles = wp.data.select( 'core/preferences' ).get('core/edit-post', 'themeStyles');
+
+	if ( ! themeStyles ) {
+
+		document.body.classList.add("ept-no-theme-styles");
+
+	}
+
+}
+
 // Using domReady which is called when Gutenberg is ready (I think)
 wp.domReady( function() {
 
 	openPostStatus();
+	mobPadding();
 
 } );

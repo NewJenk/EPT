@@ -333,7 +333,11 @@ if ( ! class_exists('en_p_t') ) :
 					$key_for_file = '$ek_for_' . $post_id . ' = \'' . $encrypted_message . '\';';
 					$iv_for_file = '$iv_for_' . $post_id . ' = \'' . $escaped_iv . '\';';
 
-					$content_for_file = <<<EOF
+					/**
+					 * Commented out as the use of HEREDOC or NOWDOC syntax is not permitted in wp.org plugins. Using
+					 * $content_for_file var immediately below this one instead.
+					 */
+					/* $content_for_file = <<<EOF
 					<?php
 					// Exit if accessed directly
 					if( ! defined( 'ABSPATH' ) ) exit;
@@ -341,7 +345,9 @@ if ( ! class_exists('en_p_t') ) :
 					$key_for_file
 					$iv_for_file
 
-					EOF;
+					EOF; */
+
+					$content_for_file = "<?php\n// Exit if accessed directly\nif( ! defined( 'ABSPATH' ) ) exit;\n\n$key_for_file\n$iv_for_file\n";
 
 					/**
 					 * Add a file with the encrypted encryption key in it along with the iv which will be used for

@@ -229,7 +229,7 @@ if ( ! class_exists('en_p_t_r') ) :
                 $_GET['post_type'] === 'en_p_t' &&
                 isset( $_GET['en_p_t_tag'] )
             ) {
-                $submenu_file .= '&en_p_t_tag=' . $_GET['en_p_t_tag'];
+                $submenu_file .= '&en_p_t_tag=' . sanitize_key($_GET['en_p_t_tag']);
             }
         
             return $parent_file;

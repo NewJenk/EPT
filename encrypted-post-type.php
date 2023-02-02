@@ -813,8 +813,8 @@ if ( ! class_exists('en_p_t') ) :
 			// Make sure the user is logged in.
 			if ( is_404() && is_user_logged_in() ) {
 
-				$post_type = $_GET['post_type'];
-				$p = $_GET['p'];
+				$post_type = sanitize_key(($_GET['post_type']));
+				$p = sanitize_key(($_GET['p']));
 
 				// This is an EPT post so redirect to the edit screen of the post.
 				if ( isset($post_type) && $post_type == 'en_p_t' && isset($p) ) {

@@ -14,6 +14,10 @@ License: GPL3
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * On plugin activation create the "encryption key encryptor" and save it in the options table AND create a directory that will be used to store the encryption keys.
+ */
+register_activation_hook(   __FILE__, array( 'en_p_t', 'en_p_t_initialise' ) );
+/**
  * Flushes rewrite rules on activation/deactivation so user doesn't have to do it manually
  *
  * @link https://wordpress.stackexchange.com/a/25979/115004
@@ -50,7 +54,6 @@ if ( ! class_exists('en_p_t') ) :
 			);
 
 			// Set text domain
-			register_activation_hook(__FILE__, array( $this, 'en_p_t_initialise_single_site' ));
 			load_plugin_textdomain( 'encrypted-post-type', false, dirname( plugin_basename(__FILE__) ) . '/languages/' );
 
 			// Decrypt the content to display in the block editor (Gutenberg).
@@ -195,14 +198,16 @@ if ( ! class_exists('en_p_t') ) :
 
 
 		/**
-		 * On single site the encryption key is added to the options table on plugin install.
+		 * On plugin activation create the "encryption key encryptor" and save it in the options table AND create a directory that will be used to store the encryption keys.
 		 *
 		 * @version 1.0.0
 		 * @since 1.0.0
 		 */
-		function en_p_t_initialise_single_site() {
+		public static function en_p_t_initialise() {
 
-			$this->en_p_t_init_encryption_setup();
+			$plugin_class = new en_p_t();
+
+			$plugin_class->en_p_t_init_encryption_setup();
 
 		}
 

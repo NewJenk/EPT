@@ -16,8 +16,8 @@ if ( ! class_exists('en_p_t_r') ) :
 		public function __construct() {
 
             // Use constant names if they exist, otherwise use Note/Notes.
-            $name = defined('EN_P_T_NAME') ? EN_P_T_NAME : esc_html__( 'Notes', 'en-p-t' );
-            $singular_name = defined('EN_P_T_S_NAME') ? EN_P_T_S_NAME : esc_html__( 'Note', 'en-p-t' );
+            $name = defined('EN_P_T_NAME') ? EN_P_T_NAME : esc_html__( 'Notes', 'encrypted-post-type' );
+            $singular_name = defined('EN_P_T_S_NAME') ? EN_P_T_S_NAME : esc_html__( 'Note', 'encrypted-post-type' );
             // Icon constant
             $icon = defined('EN_P_T_ICON') ? EN_P_T_ICON : 'dashicons-category';
 
@@ -64,17 +64,17 @@ if ( ! class_exists('en_p_t_r') ) :
 				'name'                => esc_html($this->settings['name']),
 				'singular_name'       => esc_html($this->settings['singular_name']),
 				'menu_name'           => esc_html($this->settings['name']),
-				'parent_item_colon'   => sprintf( __('Parent %s:', 'en-p-t'), esc_html($this->settings['singular_name']) ),
-				'all_items'           => sprintf( __('All %s', 'en-p-t'), esc_html($this->settings['name']) ),
-				'view_item'           => sprintf( __('View %s', 'en-p-t'), esc_html($this->settings['singular_name']) ),
-				'view_items'          => sprintf( __('View %s', 'en-p-t'), esc_html($this->settings['name']) ),
-				'add_new_item'        => sprintf( __('Add New %s', 'en-p-t'), esc_html($this->settings['singular_name']) ),
-				'add_new'             => __( 'Add New', 'en-p-t' ),
-				'edit_item'           => sprintf( __('Edit %s', 'en-p-t'), esc_html($this->settings['singular_name']) ),
-				'update_item'         => sprintf( __('Update %s', 'en-p-t'), esc_html($this->settings['singular_name']) ),
-				'search_items'        => sprintf( __('Search %s', 'en-p-t'), esc_html($this->settings['name']) ),
-				'not_found'           => __( 'Not Found', 'en-p-t' ),
-				'not_found_in_trash'  => __( 'Not Found in Trash', 'en-p-t' ),
+				'parent_item_colon'   => sprintf( __('Parent %s:', 'encrypted-post-type'), esc_html($this->settings['singular_name']) ),
+				'all_items'           => sprintf( __('All %s', 'encrypted-post-type'), esc_html($this->settings['name']) ),
+				'view_item'           => sprintf( __('View %s', 'encrypted-post-type'), esc_html($this->settings['singular_name']) ),
+				'view_items'          => sprintf( __('View %s', 'encrypted-post-type'), esc_html($this->settings['name']) ),
+				'add_new_item'        => sprintf( __('Add New %s', 'encrypted-post-type'), esc_html($this->settings['singular_name']) ),
+				'add_new'             => __( 'Add New', 'encrypted-post-type' ),
+				'edit_item'           => sprintf( __('Edit %s', 'encrypted-post-type'), esc_html($this->settings['singular_name']) ),
+				'update_item'         => sprintf( __('Update %s', 'encrypted-post-type'), esc_html($this->settings['singular_name']) ),
+				'search_items'        => sprintf( __('Search %s', 'encrypted-post-type'), esc_html($this->settings['name']) ),
+				'not_found'           => __( 'Not Found', 'encrypted-post-type' ),
+				'not_found_in_trash'  => __( 'Not Found in Trash', 'encrypted-post-type' ),
 			);
 			
 			$args = array(
@@ -121,16 +121,16 @@ if ( ! class_exists('en_p_t_r') ) :
 		  $messages['en_p_t'] = array(
 
 			0 => '', 
-			1 => sprintf( __('%1$d Updated. <a href="%2$d">View %1$d</a>', 'en-p-t'), esc_html($this->settings['singular_name']), esc_url( get_permalink($post_ID) ) ),
-			2 => __('Custom Field Updated.', 'en-p-t'),
-			3 => __('Custom Field Deleted.', 'en-p-t'),
-			4 => sprintf( __('%s Updated.', 'en-p-t'), esc_html($this->settings['singular_name']) ),
-			5 => isset($_GET['revision']) ? sprintf( __('%1$d Restored to Revision From %2$d', 'en-p-t'), esc_html($this->settings['singular_name']), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6 => sprintf( __('%1$d Added. <a href="%2$d">View %1$d</a>', 'en-p-t'), esc_html($this->settings['singular_name']), esc_url( get_permalink($post_ID) ) ),
-			7 => sprintf( __('%s Saved.', 'en-p-t'), esc_html($this->settings['singular_name']) ),
-			8 => sprintf( __('%1$d Submitted. <a target="_blank" href="%2$d">Preview %1$d</a>', 'en-p-t'), esc_html($this->settings['singular_name']), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-			9 => sprintf( __('%1$d Scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %1$d</a>', 'en-p-t'), esc_html($this->settings['singular_name']), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-			10 => sprintf( __('%1$d Draft Updated. <a target="_blank" href="%2$d">Preview %1$d</a>', 'en-p-t'), esc_html($this->settings['singular_name']), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			1 => sprintf( __('%1$d Updated. <a href="%2$d">View %1$d</a>', 'encrypted-post-type'), esc_html($this->settings['singular_name']), esc_url( get_permalink($post_ID) ) ),
+			2 => __('Custom Field Updated.', 'encrypted-post-type'),
+			3 => __('Custom Field Deleted.', 'encrypted-post-type'),
+			4 => sprintf( __('%s Updated.', 'encrypted-post-type'), esc_html($this->settings['singular_name']) ),
+			5 => isset($_GET['revision']) ? sprintf( __('%1$d Restored to Revision From %2$d', 'encrypted-post-type'), esc_html($this->settings['singular_name']), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6 => sprintf( __('%1$d Added. <a href="%2$d">View %1$d</a>', 'encrypted-post-type'), esc_html($this->settings['singular_name']), esc_url( get_permalink($post_ID) ) ),
+			7 => sprintf( __('%s Saved.', 'encrypted-post-type'), esc_html($this->settings['singular_name']) ),
+			8 => sprintf( __('%1$d Submitted. <a target="_blank" href="%2$d">Preview %1$d</a>', 'encrypted-post-type'), esc_html($this->settings['singular_name']), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			9 => sprintf( __('%1$d Scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %1$d</a>', 'encrypted-post-type'), esc_html($this->settings['singular_name']), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+			10 => sprintf( __('%1$d Draft Updated. <a target="_blank" href="%2$d">Preview %1$d</a>', 'encrypted-post-type'), esc_html($this->settings['singular_name']), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
 
 		  );
 
@@ -151,17 +151,17 @@ if ( ! class_exists('en_p_t_r') ) :
 
 			// Labels for "Tag" taxonomy
 			$labels = array(
-				'name'              => _x( 'Tags', 'taxonomy general name', 'en-p-t' ),
-				'singular_name'     => _x( 'Tag', 'taxonomy singular name', 'en-p-t' ),
-				'search_items'      => __( 'Search Tags', 'en-p-t' ),
-				'all_items'         => __( 'All Tags', 'en-p-t' ),
-				'parent_item'       => __( 'Parent Tag', 'en-p-t' ),
-				'parent_item_colon' => __( 'Parent Tag:', 'en-p-t' ),
-				'edit_item'         => __( 'Edit Tag', 'en-p-t' ),
-				'update_item'       => __( 'Update Tag', 'en-p-t' ),
-				'add_new_item'      => __( 'Add New Tag', 'en-p-t' ),
-				'new_item_name'     => __( 'New Tag Name', 'en-p-t' ),
-				'menu_name'         => __( 'Manage Tags', 'en-p-t' ),
+				'name'              => _x( 'Tags', 'taxonomy general name', 'encrypted-post-type' ),
+				'singular_name'     => _x( 'Tag', 'taxonomy singular name', 'encrypted-post-type' ),
+				'search_items'      => __( 'Search Tags', 'encrypted-post-type' ),
+				'all_items'         => __( 'All Tags', 'encrypted-post-type' ),
+				'parent_item'       => __( 'Parent Tag', 'encrypted-post-type' ),
+				'parent_item_colon' => __( 'Parent Tag:', 'encrypted-post-type' ),
+				'edit_item'         => __( 'Edit Tag', 'encrypted-post-type' ),
+				'update_item'       => __( 'Update Tag', 'encrypted-post-type' ),
+				'add_new_item'      => __( 'Add New Tag', 'encrypted-post-type' ),
+				'new_item_name'     => __( 'New Tag Name', 'encrypted-post-type' ),
+				'menu_name'         => __( 'Manage Tags', 'encrypted-post-type' ),
 			);
 		
 			$args = array(
@@ -193,7 +193,7 @@ if ( ! class_exists('en_p_t_r') ) :
 
             foreach ( $terms as $term ) {
 
-				$archived_label = __('archived', 'en-p-t');
+				$archived_label = __('archived', 'encrypted-post-type');
 
 				// Don't display label if the description is $archived_label.
 				if ( strtolower($term->description) !== esc_html($archived_label) ) {

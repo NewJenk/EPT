@@ -6,7 +6,7 @@ Description: Encrypted Post Type provides a custom post type where the content o
 Version: 1.0.0
 Author: Shaun Jenkins
 Author URI: https://github.com/NewJenk
-Text Domain: en-p-t
+Text Domain: encrypted-post-type
 License: GPL3
 */
 
@@ -50,9 +50,8 @@ if ( ! class_exists('en_p_t') ) :
 			);
 
 			// Set text domain
-			load_plugin_textdomain( 'en-p-t', false, dirname( plugin_basename(__FILE__) ) . '/languages/' );
-
 			register_activation_hook(__FILE__, array( $this, 'en_p_t_initialise_single_site' ));
+			load_plugin_textdomain( 'encrypted-post-type', false, dirname( plugin_basename(__FILE__) ) . '/languages/' );
 
 			// Decrypt the content to display in the block editor (Gutenberg).
 			add_filter( 'rest_prepare_en_p_t', array($this, 'en_p_t_prepare_filter'), 10, 3 );
@@ -127,7 +126,7 @@ if ( ! class_exists('en_p_t') ) :
 			$screen = get_current_screen();
 
 			wp_enqueue_style(
-				'en-p-t',
+				'encrypted-post-type',
 				plugin_dir_url( __FILE__ ) .  'assets/css/admin/admin-style.css',
 				'',
 				$this->settings['version'],
@@ -138,10 +137,11 @@ if ( ! class_exists('en_p_t') ) :
 			if ( get_current_screen()->is_block_editor() && $screen->post_type == 'en_p_t' ) {
 
 				wp_enqueue_script(
-					'en-p-t-edit-screen',
+					'encrypted-post-type-edit-screen',
 					plugin_dir_url( __FILE__ ) .  'assets/js/admin/onEditScreen.js',
 					array('react', 'react-dom', 'wp-data', 'wp-edit-post'),
-					'1.0.0'
+					'1.0.0',
+					true
 				);
 
 			}

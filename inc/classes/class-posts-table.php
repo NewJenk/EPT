@@ -33,8 +33,8 @@ if ( ! class_exists('en_p_t_pt') ) :
 		// Register Modified Date Column for CPT
 		function en_p_t_pt_modified_col_register( $columns ) {
 
-			$columns['created']  = __( 'Created', 'en-p-t' );
-			$columns['modified'] = __( 'Last Updated', 'en-p-t' );
+			$columns['created']  = __( 'Created', 'encrypted-post-type' );
+			$columns['modified'] = __( 'Last Updated', 'encrypted-post-type' );
 
 			unset($columns['date']);
 
@@ -55,15 +55,15 @@ if ( ! class_exists('en_p_t_pt') ) :
 
 					echo '<p class="mod-date">';
 
-						echo sprintf( esc_html__('%s at %s', 'en-p-t'), get_the_date(), get_the_time() );
+						echo sprintf( esc_html__('%s at %s', 'encrypted-post-type'), get_the_date(), get_the_time() );
 
 						/* if ( ! empty( get_the_author() ) ) {
 
-							echo '<small>' . esc_html__( 'by', 'en-p-t' ) . ' <strong>' . get_the_author() . '<strong></small>';
+							echo '<small>' . esc_html__( 'by', 'encrypted-post-type' ) . ' <strong>' . get_the_author() . '<strong></small>';
 
 						} else {
 
-							echo '<small>' . esc_html__( 'by', 'en-p-t' ) . ' <strong>' . esc_html__( 'UNKNOWN', 'en-p-t' ) . '<strong></small>';
+							echo '<small>' . esc_html__( 'by', 'encrypted-post-type' ) . ' <strong>' . esc_html__( 'UNKNOWN', 'encrypted-post-type' ) . '<strong></small>';
 
 						} */
 
@@ -77,11 +77,11 @@ if ( ! class_exists('en_p_t_pt') ) :
 
 					echo '<p class="mod-date">';
 
-						echo sprintf( esc_html__('%s at %s', 'en-p-t'), get_the_modified_date(), get_the_modified_time() );
+						echo sprintf( esc_html__('%s at %s', 'encrypted-post-type'), get_the_modified_date(), get_the_modified_time() );
 
 						/* if ( ! empty( get_the_modified_author() ) ) {
 
-							echo '<small>' . esc_html__( 'by', 'en-p-t' ) . ' <strong>' . get_the_modified_author() . '<strong></small>';
+							echo '<small>' . esc_html__( 'by', 'encrypted-post-type' ) . ' <strong>' . get_the_modified_author() . '<strong></small>';
 
 						} */
 
